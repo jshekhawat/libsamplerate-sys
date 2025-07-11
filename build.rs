@@ -6,6 +6,7 @@ fn main() {
     config
         .define("LIBSAMPLERATE_TESTS", "OFF")
         .define("LIBSAMPLERATE_EXAMPLES", "OFF")
+        .define("BUILD_SHARED_LIBS", "OFF")
         .define("LIBSAMPLERATE_INSTALL", "OFF");
 
     if std::env::var("TARGET").unwrap().contains("x86_64-apple-darwin") {
@@ -33,7 +34,7 @@ fn main() {
     } else if std::env::var("TARGET").unwrap().contains("-ios") {
         path = path.join("build").join(format!("{}-iphoneos", config.get_profile()));
     } else {
-        path = path.join("build");
+        path = path.join("build").join("src");
     }
 
     println!("cargo:rustc-link-search=native={}", path.display());
